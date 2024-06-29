@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import br.vino.transmobisp.R
 import br.vino.transmobisp.databinding.FragmentHomeBinding
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -28,10 +32,8 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+
         return root
     }
 
@@ -39,4 +41,6 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

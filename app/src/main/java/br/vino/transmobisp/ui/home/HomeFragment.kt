@@ -11,10 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import br.vino.transmobisp.R
 import br.vino.transmobisp.databinding.FragmentHomeBinding
 import br.vino.transmobisp.ui.component.BitmapHelper
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class HomeFragment : Fragment(){
@@ -53,6 +55,16 @@ class HomeFragment : Fragment(){
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync {googleMap ->
             addMarkers(googleMap)
+
+            googleMap.setOnMapLoadedCallback {
+
+                //Found extreme points between places
+                val bounds = LatLngBounds.builder()
+                places.forEach{
+                    bounds.include(it.latLng)
+                }
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
+            }
         }
         return root
     }
@@ -68,7 +80,7 @@ class HomeFragment : Fragment(){
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
                             R.drawable.bus_icon,
-                            ContextCompat.getColor(requireContext(), R.color.black)
+                            ContextCompat.getColor(requireContext(), R.color.red)
                         )
                     )
             )

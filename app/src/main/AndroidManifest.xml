@@ -13,7 +13,10 @@
         android:theme="@style/Theme.TransMobiSP"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.stops_from_line_activity.StopsFromLineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main_activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

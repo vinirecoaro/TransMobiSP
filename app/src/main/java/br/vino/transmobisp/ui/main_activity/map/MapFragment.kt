@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.map
+package br.vino.transmobisp.ui.main_activity.map
 
 import android.os.Bundle
 import android.view.LayoutInflater

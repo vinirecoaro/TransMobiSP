@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="br.vino.transmobisp.ui.map.MapFragment"
+        android:name="br.vino.transmobisp.ui.main_activity.map.MapFragment"
         android:label="@string/map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_lines"
-        android:name="br.vino.transmobisp.ui.lines.LinesFragment"
+        android:name="br.vino.transmobisp.ui.main_activity.lines.LinesFragment"
         android:label="@string/lines"
         tools:layout="@layout/fragment_lines" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="br.vino.transmobisp.ui.notifications.NotificationsFragment"
+        android:name="br.vino.transmobisp.ui.main_activity.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

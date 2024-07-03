@@ -22,10 +22,5 @@ interface OlhoVivoApiService {
     @GET("Parada/BuscarParadasPorLinha")
     suspend fun getStops(@Query("codigoLinha") lineCode: String): Response<List<Stop>>
 
-    @GET("Linha/Buscar")
-    fun getLines(@Query("termosBusca") term: String): Call<List<Line>>
-
-    @GET("Previsao/Parada")
-    fun getPrevisaoChegada(@Query("codigoParada") stopCode: String): Call<ArrivalForecastResponse>
 }
 

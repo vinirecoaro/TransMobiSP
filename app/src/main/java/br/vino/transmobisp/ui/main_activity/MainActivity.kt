@@ -1,4 +1,4 @@
-package br.vino.transmobisp
+package br.vino.transmobisp.ui.main_activity
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import br.vino.transmobisp.R
 import br.vino.transmobisp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

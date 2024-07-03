@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.lines
+package br.vino.transmobisp.ui.main_activity.lines
 
 import android.util.Log
 import androidx.lifecycle.LiveData

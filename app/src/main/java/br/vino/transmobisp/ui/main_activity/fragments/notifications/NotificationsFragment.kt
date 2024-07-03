@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.notifications
+package br.vino.transmobisp.ui.main_activity.fragments.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

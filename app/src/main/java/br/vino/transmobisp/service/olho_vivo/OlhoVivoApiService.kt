@@ -4,6 +4,7 @@ import br.vino.transmobisp.model.ArrivalForecastResponse
 import br.vino.transmobisp.model.Line
 import br.vino.transmobisp.model.Stop
 import br.vino.transmobisp.model.VehicleResponse
+import br.vino.transmobisp.model.stops_from_line.StopsFromLine
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Field
@@ -21,6 +22,9 @@ interface OlhoVivoApiService {
 
     @GET("Parada/BuscarParadasPorLinha")
     suspend fun getStops(@Query("codigoLinha") lineCode: String): Response<List<Stop>>
+
+    @GET("Previsao/Linha")
+    suspend fun getStopsFromLine(@Query("codigoLinha") lineCode: String): Response<StopsFromLine>
 
 }
 

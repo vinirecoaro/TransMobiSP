@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.lines
+package br.vino.transmobisp.ui.main_activity.fragments.lines
 
 import android.content.Intent
 import android.os.Bundle

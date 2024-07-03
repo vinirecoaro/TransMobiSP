@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.map
+package br.vino.transmobisp.ui.main_activity.fragments.map
 
 import android.util.Log
 import androidx.lifecycle.LiveData

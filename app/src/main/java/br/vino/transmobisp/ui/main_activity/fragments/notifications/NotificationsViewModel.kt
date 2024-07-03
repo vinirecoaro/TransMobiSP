@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.notifications
+package br.vino.transmobisp.ui.main_activity.fragments.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

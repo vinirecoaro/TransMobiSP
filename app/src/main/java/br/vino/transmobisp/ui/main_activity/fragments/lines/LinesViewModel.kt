@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.lines
+package br.vino.transmobisp.ui.main_activity.fragments.lines
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -15,7 +15,6 @@ import retrofit2.Response
 class LinesViewModel : ViewModel() {
 
     private val apiKey = BuildConfig.OLHO_VIVO_API_KEY
-
     private val _vehiclesLine = MutableLiveData<MutableList<VehicleLine>>()
     val vehiclesLine: LiveData<MutableList<VehicleLine>> = _vehiclesLine
 

@@ -1,4 +1,4 @@
-package br.vino.transmobisp.ui.main_activity.lines
+package br.vino.transmobisp.ui.main_activity.fragments.lines
 
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +24,6 @@ class LineListAdapter(private var lines : List<VehicleLine>, private val itemCli
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val line = filteredList[position]
         holder.bind(line, itemClickListener)
-        holder.sign.text = line.c
-        val originDestinationText = "${line.lt1} - ${line.lt0}"
-        holder.origin_destination.text = originDestinationText
     }
 
     override fun getItemCount(): Int {

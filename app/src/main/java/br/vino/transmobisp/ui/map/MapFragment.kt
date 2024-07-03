@@ -127,7 +127,7 @@ class MapFragment : Fragment(){
             val position = LatLng(stop.py, stop.px)
             googleMap.addMarker(
                 MarkerOptions()
-                    .title("Parada - ${stop.np}")
+                    .title("${stop.np} - ${stop.cp}")
                     .position(position)
                     .icon(
                         BitmapHelper.vectorToBitmap(

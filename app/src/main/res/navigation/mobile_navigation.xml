@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="br.vino.transmobisp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_lines"
+        android:name="br.vino.transmobisp.ui.lines.LinesFragment"
+        android:label="@string/lines"
+        tools:layout="@layout/fragment_lines" />
 
     <fragment
         android:id="@+id/navigation_notifications"

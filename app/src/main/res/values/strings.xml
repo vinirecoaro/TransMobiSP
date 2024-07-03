@@ -5,4 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="refresh">Atualizar</string>
     <string name="map">Mapa</string>
+    <string name="lines">Linhas</string>
 </resources>

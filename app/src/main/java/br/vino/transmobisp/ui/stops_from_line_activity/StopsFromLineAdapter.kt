@@ -9,7 +9,7 @@ import br.vino.transmobisp.R
 import br.vino.transmobisp.model.VehicleLine
 import br.vino.transmobisp.model.stops_from_line.StopWithVehicles
 
-class StopsFromLineAdapter(private var stops : List<StopWithVehicles>/*, private val itemClickListener: OnItemClickListener*/) : RecyclerView.Adapter<StopsFromLineAdapter.ViewHolder>(){
+class StopsFromLineAdapter(private var stops : List<StopWithVehicles>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<StopsFromLineAdapter.ViewHolder>(){
 
     private var filteredList: List<StopWithVehicles> = stops
 
@@ -24,7 +24,7 @@ class StopsFromLineAdapter(private var stops : List<StopWithVehicles>/*, private
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val line = filteredList[position]
-        holder.bind(line/*, itemClickListener*/)
+        holder.bind(line, itemClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -37,32 +37,31 @@ class StopsFromLineAdapter(private var stops : List<StopWithVehicles>/*, private
         notifyDataSetChanged()
     }
 
-    /*fun filter(query: String) {
+    fun filter(query: String) {
         if (query.isEmpty()) {
-            filteredList = lines.distinctBy { it.c }
+            filteredList = stops
         } else {
-            filteredList = lines.filter {
-                it.c.contains(query, ignoreCase = true) ||
-                it.lt0.contains(query, ignoreCase = true) ||
-                it.lt1.contains(query, ignoreCase = true)
-            }.distinctBy { it.c }
+            filteredList = stops.filter {
+                it.cp.toString().contains(query, ignoreCase = true) ||
+                it.np.contains(query, ignoreCase = true)
+            }
         }
         notifyDataSetChanged()
-    }*/
+    }
 
     // ViewHolder
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stopCode: TextView = itemView.findViewById(R.id.stop_code)
         val stopName: TextView = itemView.findViewById(R.id.stop_name)
 
-        fun bind(stopWithVehicles: StopWithVehicles/*, clickListener: OnItemClickListener*/) {
+        fun bind(stopWithVehicles: StopWithVehicles, clickListener: OnItemClickListener) {
             stopCode.text = stopWithVehicles.cp.toString()
             val stopNameFormatted = if (stopWithVehicles.np.isEmpty()) {"SEM IDENTIFICAÇÃO"}else{stopWithVehicles.np}
             stopName.text = stopNameFormatted
 
-            /*itemView.setOnClickListener {
-                clickListener.onItemClick(vehicleLine)
-            }*/
+            itemView.setOnClickListener {
+                clickListener.onItemClick(stopWithVehicles)
+            }
         }
 
     }

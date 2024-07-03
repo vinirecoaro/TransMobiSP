@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TransMobiSP"
         tools:targetApi="31">
         <activity
+            android:name=".ui.stop_vehicles_forecast_activity.StopVehiclesForecastActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.stops_from_line_activity.StopsFromLineActivity"
             android:exported="false" />
         <activity

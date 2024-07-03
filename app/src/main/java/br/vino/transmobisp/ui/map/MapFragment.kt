@@ -7,14 +7,13 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.vino.transmobisp.R
 import br.vino.transmobisp.databinding.FragmentMapBinding
-import br.vino.transmobisp.model.Vehicle
+import br.vino.transmobisp.model.Stop
+import br.vino.transmobisp.model.VehicleLine
 import br.vino.transmobisp.ui.component.BitmapHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -44,7 +43,6 @@ class MapFragment : Fragment(){
 
         // toolbar configuration
         setHasOptionsMenu(true)
-        //binding.mapToolbar.title = "Mapa"
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync {gMap ->
@@ -57,7 +55,6 @@ class MapFragment : Fragment(){
             }
 
         }
-
         setupListeners()
 
         return root
@@ -78,35 +75,65 @@ class MapFragment : Fragment(){
     }
 
     private fun setupListeners(){
-        viewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
+        viewModel.vehiclesLine.observe(viewLifecycleOwner) { vehiclesLineList ->
             if(checkZoomLevel()){
-                updateMarkers(vehicles)
+                updateVehicleMarkers(vehiclesLineList)
             }else{
                 Snackbar.make(binding.root, "Reduza o zoom para atualizar os veiculos", Snackbar.LENGTH_LONG).show()
             }
-
+        }
+        viewModel.stops.observe(viewLifecycleOwner){ stopList ->
+            updateStopsMarkers(stopList)
         }
     }
 
-    private fun updateMarkers(vehicles: List<Vehicle>) {
+    private fun updateVehicleMarkers(vehiclesLineList: List<VehicleLine>) {
         googleMap.clear()  // Clear existing markers
 
         val bounds = googleMap.projection.visibleRegion.latLngBounds
-        val visibleVehicles = vehicles.filter { vehicle ->
-            bounds.contains(LatLng(vehicle.py, vehicle.px))
+        val visibleVehiclesLines = vehiclesLineList.filter { vehiclesLine ->
+            vehiclesLine.vs.any{ vehicle ->
+                bounds.contains(LatLng(vehicle.py, vehicle.px))
+            }
         }
 
-        visibleVehicles.forEach { vehicle ->
-            val position = LatLng(vehicle.py, vehicle.px)  // Assume Vehicle has latitude and longitude properties
+        visibleVehiclesLines.forEach { vehicleLine ->
+            viewModel.getStops(vehicleLine.cl.toString())
+            vehicleLine.vs.forEach { vehicle ->
+                val position = LatLng(vehicle.py, vehicle.px)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .title("Linha ${vehicleLine.c}")
+                        .position(position)
+                        .icon(
+                            BitmapHelper.vectorToBitmap(
+                                requireContext(),
+                                R.drawable.bus_icon,
+                                ContextCompat.getColor(requireContext(), R.color.red)
+                            )
+                        )
+                )
+            }
+        }
+    }
+
+    private fun updateStopsMarkers(stopsList : List<Stop>){
+        val bounds = googleMap.projection.visibleRegion.latLngBounds
+        val visibleStops = stopsList.filter { stop ->
+            bounds.contains(LatLng(stop.py, stop.px))
+        }
+
+        visibleStops.forEach { stop ->
+            val position = LatLng(stop.py, stop.px)
             googleMap.addMarker(
                 MarkerOptions()
-                    .title("Vehicle ${vehicle.p}")  // Customize as needed
+                    .title("Parada - ${stop.np}")
                     .position(position)
                     .icon(
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
-                            R.drawable.bus_icon,
-                            ContextCompat.getColor(requireContext(), R.color.red)
+                            R.drawable.bus_stop_icon_24,
+                            ContextCompat.getColor(requireContext(), R.color.green)
                         )
                     )
             )

@@ -5,6 +5,7 @@ import br.vino.transmobisp.model.Line
 import br.vino.transmobisp.model.Stop
 import br.vino.transmobisp.model.VehicleResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -13,10 +14,10 @@ import retrofit2.http.Query
 
 interface OlhoVivoApiService {
     @POST("Login/Autenticar")
-    fun authenticate(@Query("token") token: String): Call<Boolean>
+    suspend fun authenticate(@Query("token") token: String): Response<Boolean>
 
     @GET("Posicao")
-    fun getVehicles(): Call<VehicleResponse>
+    suspend fun getVehicles(): Response<VehicleResponse>
 
     @GET("Linha/Buscar")
     fun getLines(@Query("termosBusca") term: String): Call<List<Line>>

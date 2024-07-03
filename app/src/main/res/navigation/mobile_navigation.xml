@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_map">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="br.vino.transmobisp.ui.map.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_map"
+        android:name="br.vino.transmobisp.ui.map.MapFragment"
+        android:label="@string/map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

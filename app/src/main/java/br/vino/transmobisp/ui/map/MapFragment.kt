@@ -1,19 +1,20 @@
-package br.vino.transmobisp.ui.home
+package br.vino.transmobisp.ui.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import br.vino.transmobisp.R
 import br.vino.transmobisp.databinding.FragmentHomeBinding
+import br.vino.transmobisp.model.Vehicle
 import br.vino.transmobisp.ui.component.BitmapHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
+    private val viewModel  by viewModels<MapViewModel>()
     private val places = arrayListOf(
         Place(
             "Google",
@@ -36,9 +38,9 @@ class HomeFragment : Fragment(){
             4.9f
         )
     )
+    private lateinit var googleMap: GoogleMap
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -46,15 +48,16 @@ class HomeFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-        mapFragment.getMapAsync {googleMap ->
-            addMarkers(googleMap)
+        mapFragment.getMapAsync {gMap ->
+            googleMap = gMap
+            viewModel.fetchVeiculos()
 
             googleMap.setOnMapLoadedCallback {
 
@@ -65,17 +68,28 @@ class HomeFragment : Fragment(){
                 }
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
             }
+
         }
+
+        setupListeners()
+
         return root
     }
 
-    private fun addMarkers(googleMap : GoogleMap){
-        places.forEach{place ->
-            val marker = googleMap.addMarker(
+    private fun setupListeners(){
+        viewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
+            addMarkers(googleMap, vehicles)
+        }
+    }
+
+    private fun addMarkers(googleMap : GoogleMap, vehicles: List<Vehicle>){
+        googleMap.clear()  // Clear existing markers
+        vehicles.forEach { vehicle ->
+            val position = LatLng(vehicle.py, vehicle.px)  // Assume Vehicle has latitude and longitude properties
+            googleMap.addMarker(
                 MarkerOptions()
-                    .title(place.name)
-                    .snippet(place.address)
-                    .position(place.latLng)
+                    .title("Vehicle ${vehicle.p}")
+                    .position(position)
                     .icon(
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
@@ -101,3 +115,14 @@ data class Place(
     val address : String,
     val rating : Float
 )
+/*
+
+googleMap.setOnMapLoadedCallback {
+
+    //Found extreme points between places
+    val bounds = LatLngBounds.builder()
+    places.forEach{
+        bounds.include(it.latLng)
+    }
+    googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
+}*/

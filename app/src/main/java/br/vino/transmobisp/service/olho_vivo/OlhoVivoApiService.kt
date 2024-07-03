@@ -13,8 +13,7 @@ import retrofit2.http.Query
 
 interface OlhoVivoApiService {
     @POST("Login/Autenticar")
-    @FormUrlEncoded
-    fun authenticate(@Field("token") token: String): Call<Void>
+    fun authenticate(@Query("token") token: String): Call<Boolean>
 
     @GET("Posicao")
     fun getVehicles(): Call<VehicleResponse>

@@ -1,5 +1,6 @@
 package br.vino.transmobisp.ui.line_list_from_stop_activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,8 +12,10 @@ import br.vino.transmobisp.databinding.ActivityStopsFromLineBinding
 import br.vino.transmobisp.model.Stop
 import br.vino.transmobisp.model.VehicleLine
 import br.vino.transmobisp.model.vehicles_lines_from_stop.LineWithVehicles
+import br.vino.transmobisp.ui.stop_vehicles_forecast_activity.StopVehiclesForecastActivity
 import br.vino.transmobisp.ui.stops_from_line_activity.StopsFromLineAdapter
 import br.vino.transmobisp.ui.stops_from_line_activity.StopsFromLineViewModel
+import br.vino.transmobisp.ui.vehicles_list_forecast_activity.VehiclesListForecastActivity
 
 class LineListFromStopActivity : AppCompatActivity(), LineListFromStopAdapter.OnItemClickListener {
 
@@ -55,6 +58,9 @@ class LineListFromStopActivity : AppCompatActivity(), LineListFromStopAdapter.On
     }
 
     override fun onItemClick(lineWithVehicles: LineWithVehicles) {
-        TODO("Not yet implemented")
+        //VehiclesListForecastActivity
+        val intent = Intent(this, VehiclesListForecastActivity::class.java)
+        intent.putExtra("lineWithVehicles", lineWithVehicles)
+        startActivity(intent)
     }
 }

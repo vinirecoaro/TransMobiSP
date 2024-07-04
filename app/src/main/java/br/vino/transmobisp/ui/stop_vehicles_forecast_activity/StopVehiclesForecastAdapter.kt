@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.vino.transmobisp.R
 import br.vino.transmobisp.model.stops_from_line.VehicleStatus
 
-class StopVehiclesForecastAdapter(private var vehicleStatusList : List<VehicleStatus>) : RecyclerView.Adapter<StopVehiclesForecastAdapter.ViewHolder>(){
-
-    private var filteredList: List<VehicleStatus> = vehicleStatusList
+class StopVehiclesForecastAdapter(private val vehicleStatusList : List<VehicleStatus>) : RecyclerView.Adapter<StopVehiclesForecastAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.stop_vehicle_forecast_item_list, parent, false)
@@ -18,18 +16,12 @@ class StopVehiclesForecastAdapter(private var vehicleStatusList : List<VehicleSt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val line = filteredList[position]
+        val line = vehicleStatusList[position]
         holder.bind(line)
     }
 
     override fun getItemCount(): Int {
-        return filteredList.size
-    }
-
-    fun updateStopsFromline(stopsFromLineList: List<VehicleStatus>){
-        vehicleStatusList = stopsFromLineList
-        filteredList = stopsFromLineList
-        notifyDataSetChanged()
+        return vehicleStatusList.size
     }
 
     // ViewHolder

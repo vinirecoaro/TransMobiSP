@@ -51,7 +51,7 @@ class MapFragment : Fragment(){
             googleMap.setOnMapLoadedCallback {
                 val posicao = LatLng(-23.5868031,-46.6843406)
                 setMapView(googleMap, posicao, 500.0)
-                viewModel.fetchVeiculos()
+                viewModel.fetchVehicles()
             }
 
         }
@@ -67,7 +67,7 @@ class MapFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_refresh -> {
-                viewModel.fetchVeiculos() // Chama o método de atualização dos veículos
+                viewModel.fetchVehicles() // Chama o método de atualização dos veículos
                 true
             }
             else -> super.onOptionsItemSelected(item)

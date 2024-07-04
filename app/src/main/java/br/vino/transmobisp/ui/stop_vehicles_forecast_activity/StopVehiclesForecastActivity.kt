@@ -19,7 +19,7 @@ class StopVehiclesForecastActivity : AppCompatActivity() {
 
         val stopWithVehicles = intent.getSerializableExtra("stopWithVehicles") as? StopWithVehicles
 
-        supportActionBar?.title = "Veiculos da linha ${stopWithVehicles!!.np}"
+        supportActionBar?.title = "Veiculos na parada ${stopWithVehicles!!.np}"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.stopVehicleForecastRecyclerView.layoutManager = LinearLayoutManager(this)

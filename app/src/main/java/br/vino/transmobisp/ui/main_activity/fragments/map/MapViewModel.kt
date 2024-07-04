@@ -21,7 +21,7 @@ class MapViewModel : ViewModel() {
     val vehiclesLine: LiveData<MutableList<VehicleLine>> = _vehiclesLine
     private val apiKey = BuildConfig.OLHO_VIVO_API_KEY
 
-    fun fetchVeiculos() {
+    fun fetchVehicles() {
         viewModelScope.launch {
             try {
                 val service = RetrofitClient.instance
